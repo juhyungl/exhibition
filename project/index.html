@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈화면</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            background-color: #eeeeee;
+
+        }
+
+        .top {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eeeeee;
+            position: fixed;
+        }
+
+        .title {
+            margin-left: 220px;
+        }
+
+        .title>img {
+            width: 250px;
+            cursor: pointer;
+        }
+
+        .menu {
+            width: 40%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .menu>span {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login {
+            margin-right: 200px;
+            padding-right: 50px;
+        }
+
+        .login>a {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+
+        }
+
+        .main {
+            padding-top: 100px;
+        }
+
+        .main-top {
+            height: 600px;
+            width: 100%;
+
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: white;
+        }
+
+        .main-top>img {
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .main-bottom {
+            margin-left: 10%;
+            margin-right: 10%;
+            height: 350px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-bottom-left {
+            width: 70%;
+            height: 300px;
+            margin: 20px;
+        }
+
+        .main-bottom-left>span {
+            font-size: 23px;
+            font-weight: bold;
+            height: 30%;
+        }
+
+        .main-bottom-right {
+            width: 30%;
+            height: 300px;
+            margin: 20px;
+        }
+
+
+
+        .card-box {
+            border-top: 1px solid black;
+            background-color: white;
+            box-shadow: 0px 0px 10px #cccccc;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-bigBox {
+            position: relative;
+        }
+
+        .left-btn {
+            position: absolute;
+            left: -10px;
+            bottom: 70px;
+            height: 100px;
+            width: 55px;
+            cursor: pointer;
+
+        }
+
+        .right-btn {
+            position: absolute;
+            left: 970px;
+            bottom: 70px;
+            height: 100px;
+            width: 55px;
+            cursor: pointer;
+        }
+
+        .card {
+            width: calc(100% / 5 - 30px);
+            height: 200px;
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+
+        }
+
+        .card:hover .card-top>img {
+
+            height: 120%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-top {
+            height: 70%;
+
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-top>img {
+
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition-duration: 0.2s;
+
+        }
+
+        .right-box {
+            height: 220px;
+            background-color: white;
+            box-shadow: 0px 0px 10px #cccccc;
+
+        }
+
+        .right-box>div {
+            border-top: 1px solid black;
+            background-color: white;
+        }
+
+        .card-bottom {
+            height: 30%;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 10px;
+        }
+
+        .card-bottom>a {
+            font-size: 12px;
+        }
+
+        .main-bottom-right-title {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .Kategorie {
+            margin-left: 10%;
+            margin-right: 10%;
+            height: 200px;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .icon {
+            width: 150px;
+            height: 150px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <a href="./index.html" class="title">
+                <img src="../resources/images/logo.png" alt="">
+            </a>
+            <div class="menu">
+                <span>소개</span>
+                <span>
+                    <a href="./전시정보.html">전시정보</a>
+                </span>
+                <span>게시판</span>
+            </div>
+            <div>
+                <div class="login">
+                    <a id="navName" href=""></a>
+                    <a id="navLogin" href="./로그인.html">로그인/회원가입</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main-top">
+                <img class="mainImg" src="" alt=""
+                    onerror="this.src='https://cdn.imweb.me/upload/S201712205a3a0910b89f5/9e19def61ad24.jpg';">
+            </div>
+            <div class="main-bottom">
+                <div class="main-bottom-left">
+                    <span>전시정보</span>
+                    <div class="card-bigBox">
+                        <img src="../resources/images/왼쪽.png" id="leftBtn" class="left-btn">
+                        <img src="../resources/images/오른쪽.png" id="rightBtn" class="right-btn">
+                        <div class="card-box">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="main-bottom-right">
+                    <div class="main-bottom-right-title">
+                        <span>게시판</span>
+                    </div>
+                    <div class="right-box">
+                        <div>글</div>
+                        <div>글</div>
+                        <div>글</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Kategorie">
+            <div class="icon">
+                장르 아이콘<img src="" alt="">
+            </div>
+
+            <div class="icon">
+                장르 아이콘<img src="" alt="">
+            </div>
+
+            <div class="icon">
+                장르 아이콘<img src="" alt="">
+            </div>
+
+            <div class="icon">
+                장르 아이콘<img src="" alt="">
+            </div>
+            <div class="icon">
+                장르 아이콘<img src="" alt="">
+            </div>
+        </div>
+        <div class="end">
+            <div></div>
+        </div>
+    </div>
+
+
+    <script>
+        let v_ajax = new XMLHttpRequest();
+
+        v_ajax.open("GET", "./json.json");
+        let v_records = null;
+
+        v_ajax.onload = function () {
+            let v_json = JSON.parse(v_ajax.response);
+
+            console.log(v_json);
+            console.log(v_json.response);
+            console.log(v_json.response.body);
+            console.log(v_json.response.body.items);
+            console.log(v_json.response.body.items.item);
+            console.log(v_json.response.body.items.item[0]);
+            console.log(v_json.response.body.items.item[0].IMAGE_OBJECT);
+
+            let v_mainImg = document.querySelector('.mainImg');
+            console.log(v_mainImg);
+            let v_items = v_json.response.body.items;
+            let vv_items = v_json.response.body.items.item;
+
+            console.log(v_items.item[0].IMAGE_OBJECT);
+            v_mainImg.src = v_items.item[0].IMAGE_OBJECT;
+            console.log(v_mainImg);
+
+            let i = 0;
+            let myTimer = setInterval(function () {
+                i++;
+                if (i >= 100) {
+                    i = 0;
+                }
+                v_mainImg.src = v_items.item[i].IMAGE_OBJECT;
+            }, 3000);
+
+            let v_useItems = [];
+
+            for (let itm of vv_items) {
+                if (itm["LOCAL_ID"]) {
+                    console.log(itm['LOCAL_ID']);
+                    v_useItems.push(itm);
+                }
+
+            }
+            console.log(v_useItems);
+
+
+
+
+            let v_cardBox = document.querySelector('.card-box');
+
+            for (let i = 0; i < 5; i++) {
+                let v_card = '<div class="card" onclick="f_detail()">';
+                v_card += ' <input type="hidden" value="' + v_useItems[i]['LOCAL_ID'] + '"/>';
+                v_card += '<div class="card-top">';
+                v_card += '<img src="' + v_items.item[i].IMAGE_OBJECT + '" >';
+                v_card += '</div>';
+                v_card += '<div class="card-bottom">';
+                v_card += '<span>' + v_items.item[i].CNTC_INSTT_NM + '</span>';
+                v_card += '<a>' + v_items.item[i].PERIOD + '</a>';
+                v_card += '</div>';
+                v_card += '</div>';
+
+                v_cardBox.innerHTML += v_card;
+
+                
+                
+
+                let n = 0;
+                let v_rightBtn = document.getElementById('rightBtn').addEventListener('click', () => {
+                    v_cardBox.innerHTML = "";
+                    n++;
+                    if (n > 19) {
+                        n = 0;
+                    }
+                    console.log(n);
+                    for (let k = 5 * n; k < 5 * (n + 1); k++) {
+                        let v_card = '<div class="card" onclick="f_detail()">';
+                        v_card += ' <input type="hidden" value="' + v_useItems[k]['LOCAL_ID'] + '"/>';
+                        v_card += '<div class="card-top">';
+                        v_card += '<img src="' + v_items.item[k].IMAGE_OBJECT + '" >';
+                        v_card += '</div>';
+                        v_card += '<div class="card-bottom">';
+                        v_card += '<span>' + v_items.item[k].CNTC_INSTT_NM + '</span>';
+                        v_card += '<a>' + v_items.item[k].PERIOD + '</a>';
+                        v_card += '</div>';
+                        v_card += '</div>';
+
+                        v_cardBox.innerHTML += v_card;
+
+                    }
+
+
+                });
+
+                let v_leftBtn = document.getElementById('leftBtn').addEventListener('click', () => {
+                    v_cardBox.innerHTML = "";
+                    n--;
+                    if (n < 0) {
+                        n = 19;
+                    }
+                    console.log(n);
+                    for (let j = 5 * n; j < 5 * (n + 1); j++) {  //  10-15 15-20 20-25
+                        let v_card = '<div class="card" onclick="f_detail()">';
+                        v_card += ' <input type="hidden" value="' + v_useItems[j]['LOCAL_ID'] + '"/>';
+                        v_card += '<div class="card-top">';
+                        v_card += '<img src="' + v_items.item[j].IMAGE_OBJECT + '">';
+                        v_card += '</div>';
+                        v_card += '<div class="card-bottom">';
+                        v_card += '<span>' + v_items.item[j].CNTC_INSTT_NM + '</span>';
+                        v_card += '<a>' + v_items.item[j].PERIOD + '</a>';
+                        v_card += '</div>';
+                        v_card += '</div>';
+
+                        v_cardBox.innerHTML += v_card;
+                    }
+                });
+            }
+        }
+        v_ajax.send();
+
+    </script>
+
+    <script>
+
+        let v_login = JSON.parse(sessionStorage.getItem('login'));
+
+        let v_navLogin = document.getElementById('navLogin');
+        let v_navName = document.getElementById('navName');
+
+        if (v_login) {
+            v_navLogin.innerHTML = '로그아웃';
+            v_navLogin.href = './로그아웃.html';
+
+            v_navName.innerHTML = v_login['memName'] + '님';
+            // v_navSignUp.href = './회원수정.html';
+        }
+
+        function f_detail() {
+            console.log(event.currentTarget);
+            console.log(event.currentTarget.children);
+
+            let v_children = event.currentTarget.children;
+            console.log(v_children);
+            let v_LOCAL_ID = v_children[0].value;
+            console.log(v_LOCAL_ID);
+
+            location.href = "./전시상세.html?LOCAL_ID=" + v_LOCAL_ID;
+        }
+
+    </script>
+
+</body>
+
+</html>

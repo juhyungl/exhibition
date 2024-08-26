@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전시상세</title>
+</head>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAEeS4arAsWigKxfuRSEdy-DKVe47vt794",
+        authDomain: "html-project-f13b7.firebaseapp.com",
+        projectId: "html-project-f13b7",
+        storageBucket: "html-project-f13b7.appspot.com",
+        messagingSenderId: "464411727582",
+        appId: "1:464411727582:web:539a9eb055d70e306e144f",
+        measurementId: "G-4J412JE6TL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    .container {
+        width: 100%;
+        margin: auto;
+
+
+    }
+
+    .top {
+        width: 100%;
+        height: 100px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background-color: #eeeeee;
+
+
+        position: fixed;
+
+    }
+
+    .title {
+        margin-left: 220px;
+    }
+
+    .title>img {
+        width: 250px;
+
+        cursor: pointer;
+    }
+
+    .menu {
+        width: 40%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .menu>span {
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .login {
+        margin-right: 200px;
+        padding-right: 50px;
+    }
+
+    .login>a {
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+
+    }
+
+    .main-bottom-left {
+        width: 80%;
+        height: 300px;
+        margin: auto;
+
+
+    }
+
+    .main-bottom-left>span {
+        font-size: 23px;
+        font-weight: bold;
+        height: 30%;
+    }
+
+    .card-box {
+        border-top: 1px solid black;
+        background-color: white;
+        box-shadow: 0px 0px 10px #cccccc;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-bigBox {
+        position: relative;
+    }
+
+    .left-btn {
+        position: absolute;
+        left: 5px;
+        bottom: 15px;
+        height: 200px;
+        width: 80px;
+        cursor: pointer;
+
+    }
+
+    .right-btn {
+        position: absolute;
+        left: 1430px;
+        bottom: 15px;
+        height: 200px;
+        width: 80px;
+        cursor: pointer;
+    }
+
+    .card {
+        width: calc(100% / 7 - 60px);
+        height: 200px;
+        display: inline-block;
+        padding: 10px;
+        cursor: pointer;
+
+    }
+
+    .card:hover .card-top>img {
+
+        height: 120%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-top {
+        height: 70%;
+
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-top>img {
+
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition-duration: 0.2s;
+
+    }
+
+
+    .main-box {
+        padding: 120px;
+        width: 80%;
+        display: flex;
+    }
+
+    .img-box {
+        width: 1000px;
+        height: 600px;
+        margin-left: 200px;
+        margin-right: 100px;
+        overflow: hidden;
+    }
+
+    .img-box>img {
+        height: 100%;
+
+    }
+
+    .item-info {
+        width: 1200px;
+        height: 600px;
+        font-size: 15px;
+        overflow: hidden;
+        padding-bottom: 10px;
+    }
+
+    .item-info>div {
+        border: 1px solid #cccccc;
+    }
+
+    .description {
+        overflow: hidden;
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+
+        display: flex;
+        margin-left: 0px;
+    }
+</style>
+
+
+<body>
+    <div class="container">
+        <div class="top">
+            <a href="./index.html" class="title">
+                <img src="../resources/images/logo.png" alt="">
+            </a>
+            <div class="menu">
+                <span>소개</span>
+                <span>전시정보</span>
+                <span>게시판</span>
+            </div>
+            <div>
+                <div class="login">
+                    <a id="navName" href=""></a>
+                    <a id="navLogin" href="./로그인.html"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-box">
+            <div class="img-box">
+                <img src="" alt="">
+            </div>
+            <div class="item-info">
+                <div class="title" id="TITLE">
+                    제목: <br>
+                </div>
+                <div id="EVENT_SITE">
+                    장소<br>
+                </div>
+                <div id="PERIOD">
+                    기간<br>
+                </div>
+                <div id="URL">
+                    <a href="">
+                        <button>홈페이지 이동</button>
+                    </a>
+                    <hr>
+                </div>
+                <div id="CNTC_INSTT_NM">
+                    연계기관<br>
+                </div>
+                <div id="COLLECTED_DATE">
+                    수집일<br>
+                </div>
+                <div id="ISSUED_DATE">
+                    자료생성일자<br>
+                </div>
+                <div class="description" id="DESCRIPTION">
+                    소개: <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-bottom-left">
+            <span>전시정보</span>
+            <div class="card-bigBox">
+                <img src="../resources/images/왼쪽.png" id="leftBtn" class="left-btn">
+                <img src="../resources/images/오른쪽.png" id="rightBtn" class="right-btn">
+                <div class="card-box">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const db = firebase.firestore();
+
+        let v_ajax = new XMLHttpRequest();
+
+        v_ajax.open("GET", "./json.json");
+        let v_records = null;
+        console.log(v_ajax);
+        v_ajax.onload = function () {
+            let v_json = JSON.parse(v_ajax.response);
+            console.log(v_json);
+
+            let v_items = v_json.response.body.items.item;
+            console.log(v_items);
+            let urlSearch = new URLSearchParams(location.search);
+            console.log(urlSearch.get("LOCAL_ID"));
+
+            for (let itm of v_items) {
+                if (itm["LOCAL_ID"] == urlSearch.get("LOCAL_ID")) {
+                    document.querySelector(".img-box > img").src = itm["IMAGE_OBJECT"];
+
+
+                    let v_divArray = document.querySelectorAll('.item-info > div')
+                    for (let i = 0; i < v_divArray.length; i++) {
+                        v_divArray[i].innerHTML += itm[v_divArray[i].id];
+
+                    }
+
+                }
+                if (itm["LOCAL_ID"] == urlSearch.get("LOCAL_ID")) {
+                    document.querySelector(".item-info > div > a").href = itm["URL"];
+                }
+            }
+
+
+
+            let vv_items = v_json.response.body.items.item;
+            let vvv_items = v_json.response.body.items;
+
+            let v_useItems = [];
+
+            for (let itm of vv_items) {
+                if (itm["LOCAL_ID"]) {
+                    console.log(itm['LOCAL_ID']);
+                    v_useItems.push(itm);
+                }
+            }
+            console.log(v_useItems);
+
+            let v_cardBox = document.querySelector('.card-box');
+
+            for (let i = 0; i < 7; i++) {
+                let v_card = '<div class="card" onclick="f_detail()">';
+                v_card += ' <input type="hidden" value="' + v_useItems[i]['LOCAL_ID'] + '"/>';
+                v_card += '<div class="card-top">';
+                v_card += '<img src="' + vvv_items.item[i].IMAGE_OBJECT + '" >';
+                v_card += '</div>';
+                v_card += '<div class="card-bottom">';
+                v_card += '<span>' + vvv_items.item[i].CNTC_INSTT_NM + '</span>';
+                v_card += '<a>' + vvv_items.item[i].PERIOD + '</a>';
+                v_card += '</div>';
+                v_card += '</div>';
+
+                v_cardBox.innerHTML += v_card;
+
+                let n = 0;
+                let v_rightBtn = document.getElementById('rightBtn').addEventListener('click', () => {
+                    v_cardBox.innerHTML = "";
+                    n++;
+                    if (n > 14) {
+                        n = 0;
+                    }
+                    console.log(n);
+                    for (let k = 7 * n; k < 7 * (n + 1); k++) {
+                        let v_card = '<div class="card" onclick="f_detail()">';
+                        v_card += ' <input type="hidden" value="' + v_useItems[k]['LOCAL_ID'] + '"/>';
+                        v_card += '<div class="card-top">';
+                        v_card += '<img src="' + vvv_items.item[k].IMAGE_OBJECT + '" >';
+                        v_card += '</div>';
+                        v_card += '<div class="card-bottom">';
+                        v_card += '<span>' + vvv_items.item[k].CNTC_INSTT_NM + '</span>';
+                        v_card += '<a>' + vvv_items.item[k].PERIOD + '</a>';
+                        v_card += '</div>';
+                        v_card += '</div>';
+
+                        v_cardBox.innerHTML += v_card;
+
+                    }
+
+                });
+
+                let v_leftBtn = document.getElementById('leftBtn').addEventListener('click', () => {
+                    v_cardBox.innerHTML = "";
+                    n--;
+                    if (n < 0) {
+                        n = 14;
+                    }
+                    console.log(n);
+                    for (let j = 7 * n; j < 7 * (n + 1); j++) {  //  10-15 15-20 20-25
+                        let v_card = '<div class="card" onclick="f_detail()">';
+                        v_card += ' <input type="hidden" value="' + v_useItems[j]['LOCAL_ID'] + '"/>';
+                        v_card += '<div class="card-top">';
+                        v_card += '<img src="' + vvv_items.item[j].IMAGE_OBJECT + '">';
+                        v_card += '</div>';
+                        v_card += '<div class="card-bottom">';
+                        v_card += '<span>' + vvv_items.item[j].CNTC_INSTT_NM + '</span>';
+                        v_card += '<a>' + vvv_items.item[j].PERIOD + '</a>';
+                        v_card += '</div>';
+                        v_card += '</div>';
+
+                        v_cardBox.innerHTML += v_card;
+                    }
+                });
+            }
+
+
+        }
+        v_ajax.send();
+
+        function f_detail() {
+            console.log(event.currentTarget);
+            console.log(event.currentTarget.children);
+
+            let v_children = event.currentTarget.children;
+            console.log(v_children);
+            let v_LOCAL_ID = v_children[0].value;
+            console.log(v_LOCAL_ID);
+
+            location.href = "./전시상세.html?LOCAL_ID=" + v_LOCAL_ID;
+        }
+
+    </script>
+
+</body>
+
+</html>

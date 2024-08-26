@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 가져오기</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+    <button id="reqBtn">모든 데이터 요청 시작</button>
+    <div id="monitor"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js" integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        let v_ajax = new XMLHttpRequest();
+        let v_monitor = document.getElementById('monitor');
+
+        let pageNo = 1;
+        let v_array = [];
+        
+
+        document.getElementById('reqBtn').addEventListener('click', () => {
+            f_reqData();
+        });
+
+        function f_reqData() {
+            let v_url = 'http://api.kcisa.kr/openapi/API_CCA_145/request';
+            let v_query = "?serviceKey=1d3afb8e-19c8-4634-943b-6b9728c702d2";
+            v_query += "&numOfRows=100&type=json";
+            v_query += "&pageNo=" + pageNo;
+
+            $.ajax({
+                url: v_url + v_query,
+                method: 'GET',
+                success: function (response) {
+
+                    let domParser = new DOMParser();
+                    let xmlObj = domParser.parseFromString(response, "text/xml");
+
+                    let v_x2js = new X2JS();
+
+                    v_json = v_x2js.xml2json(response);
+                    console.log(v_json);
+
+
+
+                    console.log(response);
+                    console.log(response['response']);
+                    console.log(response['body']['items']);
+
+                    // body 안에 items 가 존재하면 데이터 저장 후 다음 요청 계속
+                    if (response['body']['items']) {
+                        let v_items = response['body']['items'];
+                        for (let item of v_items) {
+                            v_array.push(item);
+                        }
+
+                        v_monitor.innerHTML += '<p>' + pageNo + '</p>';
+                        pageNo++;
+                        f_reqData();
+                    } else {
+                        // 데이터 더이상 없음 (요청 그만하고 확보한 데이터 저장)
+                        console.log(v_array);
+                        console.log(JSON.stringify(v_array));
+                        console.log(JSON.stringify(v_array).length);
+                        localStorage.setItem('drugItems', JSON.stringify(v_array));
+                    }
+
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

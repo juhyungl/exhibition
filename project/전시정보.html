@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전시정보</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEeS4arAsWigKxfuRSEdy-DKVe47vt794",
+            authDomain: "html-project-f13b7.firebaseapp.com",
+            projectId: "html-project-f13b7",
+            storageBucket: "html-project-f13b7.appspot.com",
+            messagingSenderId: "464411727582",
+            appId: "1:464411727582:web:539a9eb055d70e306e144f",
+            measurementId: "G-4J412JE6TL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            background-color: #eeeeee;
+
+        }
+
+        .top {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eeeeee;
+            position: fixed;
+        }
+
+        .title {
+            margin-left: 220px;
+        }
+
+        .title>img {
+            width: 250px;
+            cursor: pointer;
+        }
+
+        .menu {
+            width: 40%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .menu>span {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login {
+            margin-right: 200px;
+            padding-right: 50px;
+        }
+
+        .login>a {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+
+        }
+
+        .card-box {
+            margin: auto;
+            width: 80%;
+            padding-top:200px ;
+            border-top: 1px solid black;
+            background-color: white;
+            box-shadow: 0px 0px 10px #cccccc;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .card {
+            width: calc(100% / 5 - 30px);
+            height: 200px;
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+
+        }
+
+        .card:hover .card-top>img {
+
+            height: 120%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-top {
+            height: 70%;
+
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-top>img {
+
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition-duration: 0.2s;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <a href="./index.html" class="title">
+                <img src="../resources/images/logo.png" alt="">
+            </a>
+            <div class="menu">
+                <span>소개</span>
+                <span>
+                    <a href="./전시정보.html">전시정보</a>
+                </span>
+                <span>게시판</span>
+            </div>
+            <div>
+                <div class="login">
+                    <a id="navName" href=""></a>
+                    <a id="navLogin" href="./로그인.html"></a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card-box">
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+
+        let v_ajax = new XMLHttpRequest();
+
+        v_ajax.open("GET", "./json.json");
+        let v_records = null;
+
+        v_ajax.onload = function () {
+            let v_json = JSON.parse(v_ajax.response);
+
+
+            let v_items = v_json.response.body.items;
+            let vv_items = v_json.response.body.items.item;
+
+            let v_useItems = [];
+
+            for (let itm of vv_items) {
+                if (itm["LOCAL_ID"]) {
+                    console.log(itm['LOCAL_ID']);
+                    v_useItems.push(itm);
+                }
+
+            }
+            console.log(v_useItems);
+
+            let v_cardBox = document.querySelector('.card-box');
+
+            for (let i = 0; i < 100; i++) {
+                let v_card = '<div class="card" onclick="f_detail()">';
+                v_card += ' <input type="hidden" value="' + v_useItems[i]['LOCAL_ID'] + '"/>';
+                v_card += '<div class="card-top">';
+                v_card += '<img src="' + v_items.item[i].IMAGE_OBJECT + '" >';
+                v_card += '</div>';
+                v_card += '<div class="card-bottom">';
+                v_card += '<span>' + v_items.item[i].CNTC_INSTT_NM + '<hr></span>';
+                v_card += '<a>' + v_items.item[i].PERIOD + '</a>';
+                v_card += '</div>';
+                v_card += '</div>';
+
+                v_cardBox.innerHTML += v_card;
+
+            };
+
+        }
+
+        v_ajax.send();
+
+        function f_detail() {
+            console.log(event.currentTarget);
+            console.log(event.currentTarget.children);
+
+            let v_children = event.currentTarget.children;  
+            console.log(v_children);
+            let v_LOCAL_ID = v_children[0].value;
+            console.log(v_LOCAL_ID);
+
+            location.href = "./전시상세.html?LOCAL_ID=" + v_LOCAL_ID;
+        }
+
+    </script>
+
+
+</body>
+
+</html>

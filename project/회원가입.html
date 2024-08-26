@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEeS4arAsWigKxfuRSEdy-DKVe47vt794",
+            authDomain: "html-project-f13b7.firebaseapp.com",
+            projectId: "html-project-f13b7",
+            storageBucket: "html-project-f13b7.appspot.com",
+            messagingSenderId: "464411727582",
+            appId: "1:464411727582:web:539a9eb055d70e306e144f",
+            measurementId: "G-4J412JE6TL"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <style>
+
+.container {
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .box {
+            width: 400px;
+            height: 600px;
+
+            margin: auto;
+
+            flex-wrap: wrap;
+        }
+
+        .title-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-img {
+            width: 300px;
+            margin-bottom: 30px;
+
+
+        }
+
+        .login-box {
+            margin: auto;
+            height: 300px;
+            flex-wrap: wrap;
+            
+
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 10px 10px 10px 0px #000000;
+        }
+
+        
+        .id-box{
+            width: 300px;
+            height: 30px;
+            margin-left: 45px;
+            border-radius: 7px;
+            border: 1px solid #bbbbbb;
+            margin-top: 50px;
+        }
+
+        .pw-box{
+            width: 300px;
+            height: 30px;
+            margin-left: 45px;
+            border-radius: 7px;
+            border: 1px solid #bbbbbb;
+        }
+
+        .name-box{
+            width: 300px;
+            height: 30px;
+            margin-left: 45px;
+            border-radius: 7px;
+            border: 1px solid #bbbbbb;
+        }
+
+        .btn-box{
+            margin-top: 30px;
+            
+        }
+
+        .sign-btn{
+            width: 350px;
+            height: 40px;
+            margin-left: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #eeeeee;
+            border-style: none;
+            box-shadow: 5px 5px 10px 0px #000000;
+            cursor: pointer;
+            
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .sign-btn:hover{
+            background-color: #dddddd;
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="box">
+            <div class="title-box">
+                <a href="./index.html">
+                    <img class="title-img" src="../resources/images/logo.png" alt="">
+                </a>
+            </div>
+
+            <div class="login-box">
+                <div>
+                    <input class="id-box" id="inputId" type="text" placeholder="이메일">
+                </div>
+                <div>
+                    <input class="pw-box" id="inputPw" type="password" placeholder="비밀번호">
+                </div>
+                <div>
+                    <input class="name-box" id="inputName" type="text" placeholder="닉네임">
+                </div>
+
+                <div class="btn-box">
+                    <div>
+                        <button class="sign-btn" id="signUpBtn">회원가입</button>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+
+    <script>
+        const db = firebase.firestore();
+
+        document.getElementById('signUpBtn').addEventListener('click', () => {
+            let v_inputId = document.getElementById('inputId').value;
+            let v_inputPw = document.getElementById('inputPw').value;
+            let v_inputName = document.getElementById('inputName').value;
+
+            console.log(v_inputId);
+            console.log(v_inputPw);
+            console.log(v_inputName);
+
+            let v_json = {};
+            v_json['memId'] = v_inputId;
+            v_json['memPw'] = v_inputPw;
+            v_json['memName'] = v_inputName;
+
+
+            db.collection("member").doc(v_inputId).set(v_json)
+                .then(() => {
+                    console.log("Document successfully written!");
+                    alert('회원가입이 완료되었습니다. 로그인해주세요.')
+                    location.href = './로그인.html';
+                })
+                .catch((error) => {
+                    console.error("Error writing document: ", error);
+                });
+
+        });
+    </script>
+
+
+
+</body>
+
+</html>
